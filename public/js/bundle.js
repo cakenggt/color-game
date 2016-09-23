@@ -80,22 +80,38 @@ var App = _react2.default.createClass({
       _react2.default.createElement(
         'div',
         {
-          className: 'hash' },
+          className: 'hash-container' },
         _react2.default.createElement(
-          'span',
+          'div',
           {
-            onClick: this.submitColor },
-          '#'
-        ),
-        _react2.default.createElement('input', {
-          onChange: this.changeColor,
-          onKeyPress: this.handleKeyPress,
-          type: 'text',
-          size: '6',
-          value: this.state.submittedColor })
+            className: 'hash' },
+          _react2.default.createElement(
+            'span',
+            {
+              onClick: this.submitColor },
+            '#'
+          ),
+          _react2.default.createElement('input', {
+            onChange: this.changeColor,
+            onKeyPress: this.handleKeyPress,
+            type: 'text',
+            size: '6',
+            value: this.state.submittedColor })
+        )
       ),
-      _react2.default.createElement('div', {
-        id: 'curve_chart' })
+      _react2.default.createElement(
+        'div',
+        {
+          className: 'chart-container' },
+        _react2.default.createElement(
+          'div',
+          {
+            className: 'chart-arrow' },
+          '^'
+        ),
+        _react2.default.createElement('div', {
+          id: 'curve_chart' })
+      )
     );
   },
   changeColor: function changeColor(e) {
@@ -107,7 +123,7 @@ var App = _react2.default.createClass({
     }
   },
   submitColor: function submitColor() {
-    var diff = Math.abs(parseInt(this.state.submittedColor, 16) - this.state.color);
+    var diff = this.getDiff(parseInt(this.state.submittedColor, 16), this.state.color);
     var scoreHistory = localStorage.scoreHistory;
     if (!scoreHistory) {
       scoreHistory = [];
@@ -121,6 +137,16 @@ var App = _react2.default.createClass({
       color: Math.floor(Math.random() * 16777216)
     });
     drawChart();
+  },
+  getDiff: function getDiff(hex1, hex2) {
+    var total = 0;
+    var hex = (1 << 8) - 1;
+    for (var i = 0; i < 3; i++) {
+      total += Math.abs((hex1 & hex) - (hex2 & hex));
+      hex1 = hex1 >> 8;
+      hex2 = hex2 >> 8;
+    }
+    return total;
   }
 });
 
@@ -147,10 +173,7 @@ function drawChart() {
   var options = {
     title: 'Scores',
     curveType: 'function',
-    legend: { position: 'bottom' },
-    vAxis: {
-      scaleType: 'log'
-    }
+    legend: { position: 'bottom' }
   };
 
   var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));

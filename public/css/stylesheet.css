@@ -6,17 +6,24 @@ body {
   transition: background-color 1s;
   width: 100%;
   height: 100%;
-  overflow: auto;
+  overflow: hidden;
+}
+.hash-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 }
 .hash {
   font-size: 2em;
   font-weight: bold;
-  margin: 15% auto;
-  max-width: 600px;
   box-shadow: 2px 2px 2px rgba(5, 5, 5, 0.1);
   text-align: center;
   background-color: #efefef;
   border-radius: 3px;
+  padding: 5px;
+  display: inline;
 }
 .hash input {
   font-size: 0.7em;
@@ -26,4 +33,20 @@ body {
 #curve_chart {
   width: 60%;
   margin: 0 auto;
+}
+.chart-container {
+  transform: translateY(-3em);
+  transition: transform 1s;
+}
+.chart-container:hover {
+  transform: translateY(-100%);
+}
+.chart-arrow {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  background-color: white;
+  font-size: 3em;
+  width: 3em;
+  margin: 0 auto;
+  text-align: center;
 }
