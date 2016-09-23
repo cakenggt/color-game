@@ -23,12 +23,14 @@ body {
   background-color: #efefef;
   border-radius: 3px;
   padding: 5px;
-  display: inline;
+  display: flex;
+  align-items: center;
 }
 .hash input {
   font-size: 0.7em;
   font-weight: bold;
   border-radius: 5px;
+  padding: 1px 2px;
 }
 #curve_chart {
   width: 60%;
